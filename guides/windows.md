@@ -48,7 +48,7 @@ Warp è il tuo nuovo terminale. Più moderno e più "umano" del PowerShell o Pro
 
 1. Vai su [warp.dev](https://www.warp.dev) e scarica la versione Windows
 2. Apri il file `.exe` scaricato, segui l'installer
-3. Se Windows Defender o SmartScreen dice "Windows ha protetto il PC", clicca **Ulteriori informazioni**, **Esegui comunque**
+3. Se Windows Defender o SmartScreen dice "Windows ha protetto il PC", clicca **Ulteriori informazioni** -> **Esegui comunque**
 4. Avvia Warp dal menu Start
 5. Al primo avvio Warp chiede:
    - **Login con Google o email** (consigliato, ti dà la sincronizzazione delle preferenze)
@@ -249,20 +249,20 @@ Antigravity è un IDE Google basato su VSCode con AI integrata. Lo useremo come 
 
 1. Scarica da [labs.google.com/antigravity](https://labs.google.com/antigravity) la versione Windows
 2. Esegui l'installer
-3. Se Windows Defender / SmartScreen blocca: **Ulteriori informazioni**, **Esegui comunque**
+3. Se Windows Defender / SmartScreen blocca: **Ulteriori informazioni** -> **Esegui comunque**
 4. Avvia Antigravity dal menu Start
 5. Login con account Google
 6. Welcome screen: salta i tutorial Gemini, non ci servono adesso
 
 ### Apri il vault come progetto in Antigravity
 
-1. **File, Open Folder** (o `Ctrl+K Ctrl+O`)
+1. **File -> Open Folder** (o `Ctrl+K Ctrl+O`)
 2. Seleziona la cartella del vault
 3. Conferma "Trust the authors"
 
 ### Apri il terminale embedded e lancia Claude Code
 
-1. `View, Terminal` oppure scorciatoia `` Ctrl+` `` (apice grave, in alto a sinistra sotto Esc)
+1. `View -> Terminal` oppure scorciatoia `` Ctrl+` `` (apice grave, in alto a sinistra sotto Esc)
 2. Si apre un pannello terminale in basso
 3. Verifica di essere nella cartella del vault con `pwd` (o `Get-Location`)
 4. Lancia:
@@ -298,10 +298,10 @@ Durante la lezione costruiremo insieme contenuti pratici dentro il tuo vault. Ve
 Hai attivato la CLI in Obsidian ma non hai chiuso e riaperto Warp. Chiudi e riapri Warp.
 
 **`Windows Defender / SmartScreen blocca un'installazione`**
-È prudenza eccessiva di Windows con software scaricato da Internet. Clicca **Ulteriori informazioni**, **Esegui comunque**. Tutti i software citati nella guida sono ufficiali e legittimi.
+È prudenza eccessiva di Windows con software scaricato da Internet. Clicca **Ulteriori informazioni** -> **Esegui comunque**. Tutti i software citati nella guida sono ufficiali e legittimi.
 
 **`npm install -g` dà errore di permessi (EACCES o EPERM)**
-Esegui Warp come amministratore: tasto destro sull'icona Warp dal menu Start, **Esegui come amministratore**. Poi riprova `npm install -g @anthropic-ai/claude-code`.
+Esegui Warp come amministratore: tasto destro sull'icona Warp dal menu Start -> **Esegui come amministratore**. Poi riprova `npm install -g @anthropic-ai/claude-code`.
 
 **Path con spazi (es. "Il mio Drive")**
 Servono sempre le virgolette nei comandi. Esempio:
