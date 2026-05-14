@@ -19,11 +19,25 @@ Quando finisci avrai:
 
 Non serve sapere programmare. Serve solo seguire i passi in ordine.
 
+## Cos'è un vault e a cosa serve
+
+Il "vault" è semplicemente una **cartella del tuo computer** dove tieni tutte le note che scrivi con Obsidian. Sono **file di testo in markdown** (`.md`), niente database o formati proprietari: leggibili e portabili ovunque.
+
+A cosa serve, in pratica:
+
+- **Tenere insieme appunti, ricerche, progetti** in una sola cartella, invece che sparsi tra Note, Drive, Word, ecc.
+- **Far lavorare Jarvis dentro la tua conoscenza**: Jarvis legge e scrive nelle tue note, quindi può estrarre, riassumere, produrre brief, presentazioni, post LinkedIn partendo da ciò che hai già scritto invece che da una pagina bianca.
+- **Crescere nel tempo**: ogni sessione lascia tracce (daily note, file di tracking, memoria di Jarvis). Col tempo il vault diventa il tuo archivio personale di pensiero e produzione.
+
+**Esempio concreto** (lo vedrete in aula): posso connettere Jarvis a Meta Ads e chiedergli un report per ROAS, per creatività, o i top 3 ad set per ROAS negli ultimi 7 giorni. Jarvis prende i dati, prepara una nota nel vault con il riassunto e i punti su cui agire, e voi la trasformate in un messaggio per il cliente o in slide per la review settimanale.
+
+In aula partirete tutti con uno **starter pack** identico (cartelle base, skill, configurazione di Jarvis). Lo personalizzeremo insieme durante la prima lezione.
+
 ## Cosa ti serve prima di iniziare
 
 - un PC Windows 10 o 11 (64-bit, qualsiasi versione recente)
-- un **abbonamento Claude Pro** (o crediti API Anthropic). Senza uno dei due Claude Code non parte. Se non ce l'hai, scrivimi su Slack del master prima del 19 maggio.
-- un account Google (te ne serve uno per Drive e Antigravity, anche se non lo userai professionalmente)
+- un **abbonamento Claude Pro** (o crediti API Anthropic). Senza uno dei due Claude Code non parte. Se non ce l'hai, ne parliamo in aula: valutiamo alternative insieme.
+- un account Google (serve per Antigravity, e per Google Drive se lo userai come cloud di sincronizzazione del vault — vedi Step 5. Drive non è obbligatorio, vanno bene anche Dropbox, OneDrive, iCloud Drive)
 - circa 2 GB di spazio libero su disco
 - una connessione decente
 - diritti di amministratore sul tuo PC (per installare software)
@@ -120,7 +134,11 @@ Se risponde con la lista comandi, sei a posto. Se dice "non riconosciuto come co
 
 Il "vault" è la cartella dove vivono le tue note Obsidian + Jarvis. Puoi metterla dove vuoi.
 
-**Consiglio**: mettila dentro Google Drive, così è sincronizzata tra device. Per farlo:
+**Consiglio**: mettila dentro un servizio di sincronizzazione cloud, così se cambi dispositivo (casa, ufficio, laptop) trovi sempre lo stesso vault aggiornato. Va bene **Google Drive**, ma anche alternative come **Dropbox**, **OneDrive** o **iCloud Drive**: il principio è lo stesso. Nelle guide useremo Google Drive perché è il più diffuso; se preferisci un'altra cloud va bene, basta adattare il path al tuo provider.
+
+Se userai sempre lo stesso PC e non hai bisogno di sincronizzare, puoi anche saltare la parte cloud: trovi l'opzione "vault locale" in fondo a questo Step.
+
+**Setup Google Drive** (consigliato):
 
 1. Installa **Google Drive per desktop** da [google.com/drive/download](https://www.google.com/drive/download/), esegui l'installer
 2. Login con il tuo account Google
@@ -340,4 +358,4 @@ Da quel momento sei a posto.
 
 ## Domande
 
-Se ti si rompe qualcosa o un passaggio non torna, scrivimi su Slack del master prima della prima lezione del 19. Non aspettare l'aula per debuggarlo, perderemmo tempo a tutti.
+Se ti si rompe qualcosa o un passaggio non torna, niente panico: ne parliamo a lezione e lo sistemiamo insieme.
