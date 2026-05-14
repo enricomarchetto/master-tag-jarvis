@@ -22,6 +22,7 @@ Non serve sapere programmare. Serve solo seguire i passi in ordine.
 ## Cosa ti serve prima di iniziare
 
 - un PC Windows 10 o 11 (64-bit, qualsiasi versione recente)
+- un **abbonamento Claude Pro** (o crediti API Anthropic). Senza uno dei due Claude Code non parte. Se non ce l'hai, scrivimi su Slack del master prima del 19 maggio.
 - un account Google (te ne serve uno per Drive e Antigravity, anche se non lo userai professionalmente)
 - circa 2 GB di spazio libero su disco
 - una connessione decente
@@ -95,8 +96,6 @@ claude --help
 
 Se risponde con la lista comandi, Claude Code è installato.
 
-**Importante**: per usare Claude Code ti serve un account Anthropic + crediti API o un abbonamento Claude. Se non ce l'hai, fammelo sapere prima del 19 maggio.
-
 ## Step 4 — Installa Obsidian + attiva la sua CLI
 
 Obsidian è il database delle tue note. È gratis, locale, basato su file markdown.
@@ -125,17 +124,14 @@ Il "vault" è la cartella dove vivono le tue note Obsidian + Jarvis. Puoi metter
 
 1. Installa **Google Drive per desktop** da [google.com/drive/download](https://www.google.com/drive/download/), esegui l'installer
 2. Login con il tuo account Google
-3. Lascia che Drive si sincronizzi. Su Windows il Drive appare come una **lettera** (es. `G:`). Path tipico:
-   `G:\Il mio Drive\`
-4. Crea la cartella del vault in Warp:
+3. Lascia che Drive si sincronizzi. Su Windows il Drive appare come una **lettera**: di solito `G:`, ma può essere `H:`, `D:` o altra a seconda del tuo sistema (dipende dagli altri drive logici che hai sul PC). Per scoprire la tua: aprilo da Esplora File e guarda la barra in alto.
+4. Una volta che sai la lettera giusta, crea la cartella del vault in Warp (sostituisci `<X>` con la tua lettera, di solito `G`):
 
 ```powershell
-mkdir "G:\Il mio Drive\MioVault"
+mkdir "<X>:\Il mio Drive\MioVault"
 ```
 
 Le **virgolette sono obbligatorie** perché il path contiene spazi.
-
-Per scoprire la lettera del tuo Drive: aprilo da Esplora File, guarda la barra in alto.
 
 **Se preferisci tenere il vault locale** (non su Drive):
 
@@ -145,7 +141,7 @@ mkdir "$HOME\MioVault"
 
 ## Step 6 — Estrai lo starter pack
 
-Ti darò io il file `vault-starter-master-tag.zip` via Slack del master. Scaricalo nei Download. Poi in Warp:
+Scarica `vault-starter-master-tag.zip` dalla [pagina Releases](https://github.com/enricomarchetto/master-tag-jarvis/releases/latest) di questo repo (sotto la sezione "Assets" della release più recente). Mettilo nei Download. Poi in Warp:
 
 ```powershell
 cd "<path-completo-del-vault>"

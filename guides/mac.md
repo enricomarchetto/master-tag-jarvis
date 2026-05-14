@@ -22,6 +22,7 @@ Non serve sapere programmare. Serve solo seguire i passi in ordine.
 ## Cosa ti serve prima di iniziare
 
 - un Mac (Apple Silicon o Intel, qualsiasi versione di macOS dal 2020 in poi)
+- un **abbonamento Claude Pro** (o crediti API Anthropic). Senza uno dei due Claude Code non parte. Se non ce l'hai, scrivimi su Slack del master prima del 19 maggio.
 - un account Google (te ne serve uno per Drive e Antigravity, anche se non lo userai professionalmente)
 - circa 2 GB di spazio libero su disco
 - una connessione decente (alcuni download sono grossi, es. Xcode Command Line Tools ~1 GB)
@@ -112,8 +113,6 @@ claude --help
 
 Se risponde con la lista comandi, Claude Code è installato.
 
-**Importante**: per usare Claude Code ti serve un account Anthropic + crediti API o un abbonamento Claude. Se non ce l'hai, fammelo sapere prima del 19 maggio.
-
 ## Step 5 — Installa Obsidian + attiva la sua CLI
 
 Obsidian è il database delle tue note. È gratis, locale, basato su file markdown.
@@ -160,7 +159,7 @@ mkdir ~/MioVault
 
 ## Step 7 — Estrai lo starter pack
 
-Ti darò io il file `vault-starter-master-tag.zip` via Slack del master. Scaricalo nei Downloads. Poi in Warp:
+Scarica `vault-starter-master-tag.zip` dalla [pagina Releases](https://github.com/enricomarchetto/master-tag-jarvis/releases/latest) di questo repo (sotto la sezione "Assets" della release più recente). Mettilo nei Downloads. Poi in Warp:
 
 ```bash
 cd "<path-completo-del-vault>"
