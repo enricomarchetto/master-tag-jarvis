@@ -51,8 +51,8 @@ Warp è il tuo nuovo terminale. Più moderno e più "umano" del Terminale di sis
 4. Se Mac dice "app scaricata da Internet, sei sicuro?", autorizza (è normale, succede solo al primo avvio)
 5. Al primo avvio Warp chiede:
    - **Login con Google o email** (consigliato, ti dà la sincronizzazione delle preferenze)
-   - **"Build an agent" oppure "Terminal"** → scegli **Terminal**
-   - **Select directory** → seleziona la tua **home** (`/Users/<tuonome>`) oppure salta se l'opzione c'è
+   - **"Build an agent" oppure "Terminal"**, scegli **Terminal**
+   - **Select directory**, seleziona la tua **home** (`/Users/<tuonome>`) oppure salta se l'opzione c'è
 
 A questo punto vedi un prompt tipo:
 
@@ -134,7 +134,7 @@ Obsidian è il database delle tue note. È gratis, locale, basato su file markdo
 1. Vai su [obsidian.md](https://obsidian.md), scarica per Mac, apri il `.dmg`, trascina in Applicazioni
 2. Apri Obsidian
 3. Vai in **Settings** (icona ingranaggio in basso a sinistra)
-4. → **General**
+4. **General**
 5. Scorri fino a **Command line interface** e attivala
 6. Obsidian ti mostra un prompt di registrazione: clicca su "Register" o equivalente
 7. **Chiudi Warp e riaprilo** (importante: il terminale deve ricaricare il PATH)
@@ -167,7 +167,7 @@ mkdir "$HOME/Library/CloudStorage/GoogleDrive-tuamail@gmail.com/Il mio Drive/Mio
 
 (Sostituisci `tuamail@gmail.com` col tuo indirizzo Google. Il path ha gli spazi, quindi vanno le **virgolette**.)
 
-Per scoprire il path esatto del tuo Drive: in Finder vai su Google Drive, tasto destro → **Get Info** (oppure ⌘I), sotto "Where" trovi il path completo. Puoi anche **trascinare la cartella da Finder dentro Warp** dopo aver scritto `cd `: Warp incolla il path automaticamente.
+Per scoprire il path esatto del tuo Drive: in Finder vai su Google Drive, tasto destro, **Get Info** (oppure ⌘I), sotto "Where" trovi il path completo. Puoi anche **trascinare la cartella da Finder dentro Warp** dopo aver scritto `cd `: Warp incolla il path automaticamente.
 
 **Se preferisci tenere il vault locale** (non su Drive):
 
@@ -265,19 +265,19 @@ Antigravity è un IDE Google basato su VSCode con AI integrata. Lo useremo come 
 
 1. Scarica da [labs.google.com/antigravity](https://labs.google.com/antigravity)
 2. Apri il `.dmg`, trascina **Antigravity** in Applicazioni
-3. Avvia, autorizza Gatekeeper se chiede (Preferenze di Sistema → Privacy e Sicurezza)
+3. Avvia, autorizza Gatekeeper se chiede (Preferenze di Sistema, Privacy e Sicurezza)
 4. Login con account Google
 5. Welcome screen: salta i tutorial Gemini, non ci servono adesso
 
 ### Apri il vault come progetto in Antigravity
 
-1. **File → Open Folder** (o `⌘O`)
+1. **File, Open Folder** (o `⌘O`)
 2. Seleziona la cartella del vault
 3. Conferma "Trust the authors"
 
 ### Apri il terminale embedded e lancia Claude Code
 
-1. `View → Terminal` oppure scorciatoia `` Ctrl+` `` (apice grave, in alto a sinistra sotto Esc)
+1. `View, Terminal` oppure scorciatoia `` Ctrl+` `` (apice grave, in alto a sinistra sotto Esc)
 2. Si apre un pannello terminale in basso
 3. Verifica di essere nella cartella del vault con `pwd`
 4. Lancia:
@@ -316,7 +316,7 @@ Hai attivato la CLI in Obsidian ma non hai chiuso e riaperto Warp. Chiudi e riap
 Hai installato Node senza Homebrew. Soluzione pulita: disinstalla Node (`brew uninstall node` se ce l'hai, oppure usa l'uninstaller del `.pkg` di nodejs.org), poi installa via Homebrew (`brew install node`). Da quel momento `npm install -g` non chiederà più sudo.
 
 **Gatekeeper blocca Warp / Obsidian / Antigravity**
-Al primo avvio macOS blocca le app scaricate. Soluzione: tasto destro sull'app in Applicazioni → **Apri**. Solo la prima volta.
+Al primo avvio macOS blocca le app scaricate. Soluzione: tasto destro sull'app in Applicazioni, **Apri**. Solo la prima volta.
 
 **Le slash command non compaiono in Claude Code**
 Hai lanciato `claude` fuori dalla root del vault. `cd` nella cartella del vault, poi rilancia `claude`.
