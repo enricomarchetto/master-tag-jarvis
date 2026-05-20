@@ -263,7 +263,7 @@ Esci da Claude Code.
 
 Antigravity è un IDE Google basato su VSCode con AI integrata. Lo useremo come **finestra principale dove tutto si parla**: editor + AI + terminale, tutto in uno.
 
-1. Scarica da [labs.google.com/antigravity](https://labs.google.com/antigravity)
+1. Vai su [labs.google.com/antigravity](https://labs.google.com/antigravity) e scarica la **versione IDE** per Mac (è l'editor desktop completo, non la modalità browser/agent)
 2. Apri il `.dmg`, trascina **Antigravity** in Applicazioni
 3. Avvia, autorizza Gatekeeper se chiede (Preferenze di Sistema -> Privacy e Sicurezza)
 4. Login con account Google
@@ -274,6 +274,26 @@ Antigravity è un IDE Google basato su VSCode con AI integrata. Lo useremo come 
 1. **File -> Open Folder** (o `⌘O`)
 2. Seleziona la cartella del vault
 3. Conferma "Trust the authors"
+
+### Installa l'estensione Claude Code for VS Code
+
+Antigravity è basato su VS Code, quindi ha lo stesso sistema di estensioni: piccoli plugin che si scaricano dal Marketplace e aggiungono funzioni all'editor. L'estensione che ci interessa è quella ufficiale di Anthropic, **Claude Code for VS Code**: serve a far parlare Jarvis con l'IDE (file aperti visti in automatico, diff visivi, link cliccabili al codice).
+
+Per installare un'estensione in Antigravity:
+
+1. Apri il pannello **Extensions**: clicca l'icona a forma di **quattro tasselli** nella barra verticale a sinistra (di solito è la quarta dall'alto), oppure usa la scorciatoia `⌘+Shift+X`
+2. Si apre una colonna con una barra di ricerca in alto e una lista di estensioni
+3. Nella barra di ricerca scrivi `Claude Code`
+4. Tra i risultati, individua **Claude Code for VS Code** pubblicato da **Anthropic** (controlla il nome dell'autore: è importante per non installare cloni)
+
+   ![Pannello Extensions di Antigravity con la ricerca "Claude Code"](images/antigravity-claude-code-extension.png)
+
+5. Clicca **Install** sul riquadro dell'estensione
+6. Se Antigravity ti chiede di **ricaricare la finestra** (reload), accetta
+
+Quando l'estensione è installata vedrai una nuova icona di Claude Code nella barra laterale sinistra di Antigravity.
+
+> Nota: Antigravity usa come marketplace di default **Open VSX** (non il marketplace di Microsoft). Per le estensioni indicate in questa guida non cambia nulla, sono tutte disponibili lì. Se in futuro ti capita di non trovare un'estensione che esiste solo sul marketplace Microsoft, puoi cambiare marketplace dalle impostazioni di Antigravity.
 
 ### Apri il terminale embedded e lancia Claude Code
 
