@@ -1,6 +1,6 @@
 # master-tag-jarvis
 
-Guide e starter pack per il setup di un vault Jarvis (Obsidian + Claude Code + Antigravity). Materiale didattico del Master AI for Advertising di Talent Garden, edizione Spring 2026.
+Guide e starter pack per il setup di un vault Jarvis (Warp + Claude Code + Obsidian). Materiale didattico del Master AI for Advertising di Talent Garden, edizione Spring 2026.
 
 ## Cosa contiene questo repo
 
@@ -27,7 +27,6 @@ Tempo stimato: circa un'ora, una volta sola.
 - **[Node.js + npm](https://nodejs.org)** — runtime per Claude Code
 - **[Claude Code](https://claude.com/claude-code)** — AI agentica di Anthropic, qui chiamata "Jarvis"
 - **[Obsidian](https://obsidian.md)** — database di note in markdown
-- **[Antigravity](https://labs.google.com/antigravity)** — IDE Google basato su VSCode con AI integrata
 - **[Google Drive](https://www.google.com/drive)** (opzionale) — sincronizzazione del vault tra device
 
 ## Supporto

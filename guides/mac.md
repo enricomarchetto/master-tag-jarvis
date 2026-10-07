@@ -8,14 +8,14 @@ tags: [guida, setup, mac, jarvis, master-tag]
 
 # Guida setup Jarvis — versione Mac
 
-Questa guida ti porta da zero a un ambiente di lavoro AI completo, identico a quello che useremo in aula durante le mie lezioni del 19 e 21 maggio. Tempo stimato: **circa un'ora**, una volta sola.
+Questa guida ti porta da zero a un ambiente di lavoro AI completo, identico a quello che useremo in aula durante le mie lezioni del Master. Tempo stimato: **circa 40 minuti**, una volta sola.
 
 Quando finisci avrai:
 
 - un **terminale moderno** (Warp)
 - un **AI conversazionale** che lavora dentro il tuo file system (Claude Code = "Jarvis")
 - un **archivio personale di note** che cresce nel tempo (Obsidian + un piccolo vault)
-- un **IDE** dove tutto questo si parla (Antigravity)
+- un set di **skill** (i comandi di Jarvis, come `/setup-vault` e `/save-session`) già pronte nel vault
 
 Non serve sapere programmare. Serve solo seguire i passi in ordine.
 
@@ -29,7 +29,7 @@ A cosa serve, in pratica:
 - **Far lavorare Jarvis dentro la tua conoscenza**: Jarvis legge e scrive nelle tue note, quindi può estrarre, riassumere, produrre brief, presentazioni, post LinkedIn partendo da ciò che hai già scritto invece che da una pagina bianca.
 - **Crescere nel tempo**: ogni sessione lascia tracce (daily note, file di tracking, memoria di Jarvis). Col tempo il vault diventa il tuo archivio personale di pensiero e produzione.
 
-**Esempio concreto** (lo vedrete in aula): posso connettere Jarvis a Meta Ads e chiedergli un report per ROAS, per creatività, o i top 3 ad set per ROAS negli ultimi 7 giorni. Jarvis prende i dati, prepara una nota nel vault con il riassunto e i punti su cui agire, e voi la trasformate in un messaggio per il cliente o in slide per la review settimanale.
+**Esempio concreto**: scrivi a Jarvis "prepara un brief per il cliente X partendo dai miei appunti dell'ultima call". Jarvis cerca nel vault le note giuste, ti propone una bozza e la salva come nuova nota, pronta da rifinire e inviare. Tu parti da una pagina già piena, non da una bianca.
 
 In aula partirete tutti con uno **starter pack** identico (cartelle base, skill, configurazione di Jarvis). Lo personalizzeremo insieme durante la prima lezione.
 
@@ -37,7 +37,7 @@ In aula partirete tutti con uno **starter pack** identico (cartelle base, skill,
 
 - un Mac (Apple Silicon o Intel, qualsiasi versione di macOS dal 2020 in poi)
 - un **abbonamento Claude Pro** (o crediti API Anthropic). Senza uno dei due Claude Code non parte. Se non ce l'hai, ne parliamo in aula: valutiamo alternative insieme.
-- un account Google (serve per Antigravity, e per Google Drive se lo userai come cloud di sincronizzazione del vault — vedi Step 6. Drive non è obbligatorio, vanno bene anche Dropbox, OneDrive, iCloud Drive)
+- un account Google (serve solo se userai Google Drive come cloud di sincronizzazione del vault, vedi Step 3. Drive non è obbligatorio, vanno bene anche Dropbox, OneDrive, iCloud Drive)
 - circa 2 GB di spazio libero su disco
 - una connessione decente (alcuni download sono grossi, es. Xcode Command Line Tools ~1 GB)
 
@@ -62,97 +62,29 @@ TuoNome@TuoMac ~ %
 
 Sei in Warp. Da qui in poi tutti i comandi li dai qui.
 
-## Step 2 — Installa Homebrew
+## Step 2 — Installa Claude Code
 
-Homebrew è un "gestore di pacchetti" per Mac. Ti permette di installare software (Node, git, ecc.) senza dover scaricare installer uno per uno e senza problemi di permessi.
+Claude Code è "Jarvis": l'AI agentica che lavora dentro il tuo file system, legge le tue cartelle, scrive file, ti aiuta a ragionare. È l'unica cosa che installi a mano: **tutto il resto lo installa lui per te**.
 
-Copia e incolla questo comando in Warp, poi premi Invio:
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Durante l'installazione:
-
-- ti chiederà la **password del tuo Mac** (quella che usi per il login). **Mentre la digiti non vedi niente sullo schermo**: né asterischi, né pallini, né movimento. È normale, è una scelta di sicurezza di Unix. Scrivi la password "al buio" e premi Invio.
-- scaricherà i **Command Line Tools per Xcode** (~1 GB, può richiedere 5-20 minuti a seconda della connessione). Lascia girare, non fare altro nel terminale.
-
-Quando finisce, vedrai un messaggio tipo "Installation successful". Aggiungi Homebrew al PATH copiando questo comando, di cui ti darà il testo esatto sullo schermo (di solito è uno dei due qui sotto, dipende dal Mac):
+In Warp incolla:
 
 ```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-Verifica:
+Chiudi e riapri Warp, poi verifica:
 
 ```bash
-brew --version
+claude --version
 ```
 
-Se risponde con un numero di versione, sei a posto.
+Se risponde con un numero di versione, è installato. La prima volta che lo lanci (lo faremo allo Step 4) ti chiede di fare **login con il tuo account Claude** (Pro).
 
-## Step 3 — Installa Node.js + npm
+> Non serve installare Homebrew, Node.js o npm: l'installer nativo di Claude Code non li richiede. Se in futuro un'attività ne avrà bisogno, te lo dirà Claude stesso e li installerà lui.
 
-Node serve a far girare Claude Code. Con Homebrew è banale:
+## Step 3 — Crea la cartella del vault
 
-```bash
-brew install node
-```
-
-Aspetta che finisca (30 secondi - 2 minuti). Poi verifica:
-
-```bash
-node -v
-npm -v
-```
-
-Dovresti vedere due numeri di versione (es. `v22.x.x` e `10.x.x`).
-
-## Step 4 — Installa Claude Code
-
-Claude Code è "Jarvis": l'AI agentica che lavora dentro il tuo file system, legge le tue cartelle, scrive file, ti aiuta a ragionare. Installa con:
-
-```bash
-npm install -g @anthropic-ai/claude-code
-```
-
-(Grazie ad Homebrew, npm non ti chiederà sudo. Se ti chiede sudo, vuol dire che hai installato Node in un altro modo: dimmelo e ti aiuto a sistemare.)
-
-Verifica:
-
-```bash
-claude --help
-```
-
-Se risponde con la lista comandi, Claude Code è installato.
-
-## Step 5 — Installa Obsidian + attiva la sua CLI
-
-Obsidian è il database delle tue note. È gratis, locale, basato su file markdown.
-
-1. Vai su [obsidian.md](https://obsidian.md), scarica per Mac, apri il `.dmg`, trascina in Applicazioni
-2. Apri Obsidian
-3. Vai in **Settings** (icona ingranaggio in basso a sinistra)
-4. **General**
-5. Scorri fino a **Command line interface** e attivala
-6. Obsidian ti mostra un prompt di registrazione: clicca su "Register" o equivalente
-7. **Chiudi Warp e riaprilo** (importante: il terminale deve ricaricare il PATH)
-8. In Warp, verifica:
-
-```bash
-obsidian help
-```
-
-Se risponde con la lista comandi, sei a posto. Se dice "command not found", non hai ancora riaperto Warp dopo aver attivato la CLI.
-
-## Step 6 — Crea la cartella del vault
-
-Il "vault" è la cartella dove vivono le tue note Obsidian + Jarvis. Puoi metterla dove vuoi.
-
-**Consiglio**: mettila dentro un servizio di sincronizzazione cloud, così se cambi dispositivo (casa, ufficio, laptop) trovi sempre lo stesso vault aggiornato. Va bene **Google Drive**, ma anche alternative come **Dropbox**, **OneDrive** o **iCloud Drive**: il principio è lo stesso. Nelle guide useremo Google Drive perché è il più diffuso; se preferisci un'altra cloud va bene, basta adattare il path al tuo provider.
-
-Se userai sempre lo stesso Mac e non hai bisogno di sincronizzare, puoi anche saltare la parte cloud: trovi l'opzione "vault locale" in fondo a questo Step.
+Il vault può stare dove vuoi, ma ti consiglio un servizio di sincronizzazione cloud (**Google Drive**, **Dropbox**, **OneDrive**, **iCloud Drive**): se cambi dispositivo ritrovi lo stesso vault aggiornato. Qui usiamo Google Drive; con un altro provider adatta il path. Se lavori sempre da un solo computer puoi saltare il cloud: l'opzione "vault locale" è in fondo a questo step.
 
 **Setup Google Drive** (consigliato):
 
@@ -175,43 +107,54 @@ Per scoprire il path esatto del tuo Drive: in Finder vai su Google Drive, tasto 
 mkdir ~/MioVault
 ```
 
-## Step 7 — Estrai lo starter pack
+## Step 4 — Lascia che Claude installi la skill Jarvis
 
-Scarica `vault-starter-master-tag.zip` dalla [pagina Releases](https://github.com/enricomarchetto/master-tag-jarvis/releases/latest) di questo repo (sotto la sezione "Assets" della release più recente). Mettilo nei Downloads. Poi in Warp:
+Questo è il passo "magico": invece di scaricare e scompattare zip a mano, **chiedi a Claude di farlo**.
+
+Entra nella cartella del vault e avvia Claude Code:
 
 ```bash
 cd "<path-completo-del-vault>"
-unzip ~/Downloads/vault-starter-master-tag.zip
+claude
 ```
 
-(Anche qui le virgolette se il path ha spazi.)
+Al primo avvio fai login con il tuo account Claude. Poi incolla questo messaggio:
 
-Verifica che siano comparsi:
+```
+Scarica lo starter pack "vault-starter-master-tag.zip" dall'ultima release di
+https://github.com/enricomarchetto/master-tag-jarvis,
+estrailo direttamente nella root di questa cartella (non in una sottocartella),
+poi verifica che ci siano .claude/, .obsidian/, Templates/ e CLAUDE.md.
+Se per fare qualcosa ti serve un programma che manca (git, Node, ecc.), dimmelo
+e installalo tu.
+```
+
+Claude ti chiederà il permesso per scaricare e scrivere file: **leggi cosa sta per fare e conferma**. Quando finisce, hai nel vault le skill di Jarvis (`/setup-vault`, `/save-session`, `/handoff`, `/vault-health-check`, ...), i template e la configurazione base.
+
+**Se Claude non riesce a scaricare lo zip**, fallo a mano: scaricalo dalla [pagina Releases](https://github.com/enricomarchetto/master-tag-jarvis/releases/latest) (sezione "Assets"), mettilo nei Download e chiedi a Claude: *"estrai lo zip che trovi in Downloads nella cartella corrente"*.
+
+Quando ha finito, scrivi `/exit`: nei prossimi step lavori su Obsidian, e a Claude torniamo allo Step 7.
+
+## Step 5 — Installa Obsidian + attiva la sua CLI
+
+Obsidian è il database delle tue note. È gratis, locale, basato su file markdown.
+
+1. Vai su [obsidian.md](https://obsidian.md), scarica per Mac, apri il `.dmg`, trascina in Applicazioni
+2. Apri Obsidian
+3. Vai in **Settings** (icona ingranaggio in basso a sinistra)
+4. **General**
+5. Scorri fino a **Command line interface** e attivala
+6. Obsidian ti mostra un prompt di registrazione: clicca su "Register" o equivalente
+7. **Chiudi Warp e riaprilo** (importante: il terminale deve ricaricare il PATH)
+8. In Warp, verifica:
 
 ```bash
-ls -la
+obsidian help
 ```
 
-Devi vedere (a livello root, **non** in una sottocartella):
+Se risponde con la lista comandi, sei a posto (altrimenti vedi Troubleshooting).
 
-- `.claude/`
-- `.agents/`
-- `.obsidian/`
-- `Templates/`
-- `CLAUDE.md`
-- `AGENTS.md`
-- `Guida vault-starter-generic.md`
-
-**Se vedi una sottocartella `vault-starter-master-tag/` dentro al vault** (errore comune):
-
-```bash
-rm -rf vault-starter-master-tag
-unzip ~/Downloads/vault-starter-master-tag.zip
-```
-
-Lo zip va estratto direttamente nella root del vault, non dentro una sottocartella.
-
-## Step 8 — Apri il vault in Obsidian
+## Step 6 — Apri il vault in Obsidian
 
 In Obsidian:
 
@@ -220,15 +163,9 @@ In Obsidian:
 3. Clicca "Trust author" se chiede
 4. **Lascia Obsidian aperto** per tutto il setup e per ogni sessione successiva con Jarvis (la CLI dialoga con Obsidian in esecuzione, se chiudi smette di funzionare)
 
-## Step 9 — Avvia Jarvis e fai il setup
+## Step 7 — Avvia Jarvis e fai il setup
 
-Nella cartella del vault (in Warp):
-
-```bash
-claude
-```
-
-Si apre l'interfaccia di Claude Code. Scrivi:
+Da Warp, nella cartella del vault, lancia `claude`. Poi scrivi:
 
 ```
 /setup-vault
@@ -259,90 +196,22 @@ Per consolidare lo stato. Poi:
 
 Esci da Claude Code.
 
-## Step 10 — Installa Antigravity (uso quotidiano)
+## Come lavori ogni giorno
 
-Antigravity è un IDE Google basato su VSCode con AI integrata. Lo useremo come **finestra principale dove tutto si parla**: editor + AI + terminale, tutto in uno.
+Il tuo setup quotidiano sono due finestre affiancate: **Warp** (dove parli con Jarvis) e **Obsidian** (dove leggi, correggi e colleghi le note che Jarvis crea o modifica).
 
-1. Vai su [labs.google.com/antigravity](https://labs.google.com/antigravity) e scarica la **versione IDE** per Mac (è l'editor desktop completo, non la modalità browser/agent)
-2. Apri il `.dmg`, trascina **Antigravity** in Applicazioni
-3. Avvia, autorizza Gatekeeper se chiede (Preferenze di Sistema -> Privacy e Sicurezza)
-4. Login con account Google
-5. Welcome screen: salta i tutorial Gemini, non ci servono adesso
-
-### Apri il vault come progetto in Antigravity
-
-1. **File -> Open Folder** (o `⌘O`)
-2. Seleziona la cartella del vault
-3. Conferma "Trust the authors"
-
-### Installa l'estensione Claude Code for VS Code
-
-Antigravity è basato su VS Code, quindi ha lo stesso sistema di estensioni: piccoli plugin che si scaricano dal Marketplace e aggiungono funzioni all'editor. L'estensione che ci interessa è quella ufficiale di Anthropic, **Claude Code for VS Code**: serve a far parlare Jarvis con l'IDE (file aperti visti in automatico, diff visivi, link cliccabili al codice).
-
-Per installare un'estensione in Antigravity:
-
-1. Apri il pannello **Extensions**: clicca l'icona a forma di **quattro tasselli** nella barra verticale a sinistra (di solito è la quarta dall'alto), oppure usa la scorciatoia `⌘+Shift+X`
-2. Si apre una colonna con una barra di ricerca in alto e una lista di estensioni
-3. Nella barra di ricerca scrivi `Claude Code`
-4. Tra i risultati, individua **Claude Code for VS Code** pubblicato da **Anthropic** (controlla il nome dell'autore: è importante per non installare cloni)
-
-   ![Pannello Extensions di Antigravity con la ricerca "Claude Code"](images/antigravity-claude-code-extension.png)
-
-5. Clicca **Install** sul riquadro dell'estensione
-6. Se Antigravity ti chiede di **ricaricare la finestra** (reload), accetta
-
-Quando l'estensione è installata vedrai una nuova icona di Claude Code nella barra laterale sinistra di Antigravity.
-
-> Nota: Antigravity usa come marketplace di default **Open VSX** (non il marketplace di Microsoft). Per le estensioni indicate in questa guida non cambia nulla, sono tutte disponibili lì. Se in futuro ti capita di non trovare un'estensione che esiste solo sul marketplace Microsoft, puoi cambiare marketplace dalle impostazioni di Antigravity.
-
-### Apri il terminale embedded e lancia Claude Code
-
-1. `View -> Terminal` oppure scorciatoia `` Ctrl+` `` (apice grave, in alto a sinistra sotto Esc)
-2. Si apre un pannello terminale in basso
-3. Verifica di essere nella cartella del vault con `pwd`
-4. Lancia:
-
-```bash
-claude
-```
-
-Da questo momento, **parli con Jarvis dal terminale di Antigravity**. È esattamente lo stesso Jarvis di prima (le slash command `/save-session`, `/handoff`, `/vault-health-check` funzionano identiche), solo che adesso vedi anche i file del vault nell'explorer di sinistra.
-
-## Cosa fare ogni volta che inizi a lavorare
-
-1. Apri **Obsidian** (vault aperto)
-2. Apri **Antigravity** (vault aperto come progetto)
-3. Nel terminale embedded di Antigravity: `claude`
-4. Lavora con Jarvis
-5. A fine sessione: `/save-session` poi `/exit`
-
-## Cosa porterai in aula il 19 e 21 maggio
-
-Per le mie lezioni del Master:
-
-- Setup completato fin qui
-- Vault Jarvis funzionante
-- Il tuo LLM Pro privato (Claude / ChatGPT / Gemini) attivo durante la lezione
-- Carta e penna per appunti grezzi
-
-Durante la lezione costruiremo insieme contenuti pratici dentro il tuo vault. Vedrai Jarvis lavorare in diretta sul mio schermo, replicherai sul tuo.
+1. Apri **Obsidian** con il vault (deve restare aperto: la CLI dialoga con lui)
+2. Apri **Warp** e vai nella cartella del vault (`vault`, se hai creato l'alias, oppure `cd` col path completo)
+3. Lancia `claude` e lavora con Jarvis
+4. A fine sessione: `/save-session` poi `/exit`
 
 ## Troubleshooting Mac-specifico
 
 **`obsidian: command not found`**
 Hai attivato la CLI in Obsidian ma non hai chiuso e riaperto Warp. Chiudi e riapri Warp.
 
-**`npm install -g` chiede sudo**
-Hai installato Node senza Homebrew. Soluzione pulita: disinstalla Node (`brew uninstall node` se ce l'hai, oppure usa l'uninstaller del `.pkg` di nodejs.org), poi installa via Homebrew (`brew install node`). Da quel momento `npm install -g` non chiederà più sudo.
-
-**Gatekeeper blocca Warp / Obsidian / Antigravity**
+**Gatekeeper blocca Warp / Obsidian**
 Al primo avvio macOS blocca le app scaricate. Soluzione: tasto destro sull'app in Applicazioni -> **Apri**. Solo la prima volta.
-
-**Le slash command non compaiono in Claude Code**
-Hai lanciato `claude` fuori dalla root del vault. `cd` nella cartella del vault, poi rilancia `claude`.
-
-**Apple Silicon vs Intel**
-Tutti i software citati hanno build native per entrambe le architetture. Il sito di solito rileva automaticamente.
 
 **Path con spazi (es. "Il mio Drive")**
 Servono sempre le virgolette nei comandi. Esempio:
@@ -360,20 +229,20 @@ source ~/.zshrc
 
 Da quel momento basta scrivere `vault` in Warp e ci entri dentro.
 
-**Jarvis non legge bene il vault**
+**Le slash command non compaiono, o Jarvis non legge il vault**
 Tre check:
 1. Obsidian è aperto sul vault giusto?
 2. `obsidian help` risponde dal terminale?
 3. Claude Code è lanciato dalla root del vault?
 
-Se vuoi una **rete di sicurezza** contro errori, prima di cominciare a lavorare:
+Se vuoi una **rete di sicurezza** contro errori, prima di cominciare a lavorare scrivi a Claude:
 
-```bash
-cd "<path-vault>"
-git init && git add -A && git commit -m "Initial vault starter"
+```
+Inizializza git in questa cartella e fai un primo commit "Initial vault starter".
+Se git non è installato, installalo tu.
 ```
 
-Da quel momento se Jarvis fa danni puoi tornare indietro con `git reset --hard HEAD`.
+Da quel momento, se Jarvis fa danni, chiedi a Claude di riportare il vault all'ultimo commit.
 
 ## Domande
 

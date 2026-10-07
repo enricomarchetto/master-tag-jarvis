@@ -8,14 +8,14 @@ tags: [guida, setup, windows, pc, jarvis, master-tag]
 
 # Guida setup Jarvis — versione Windows
 
-Questa guida ti porta da zero a un ambiente di lavoro AI completo, identico a quello che useremo in aula durante le mie lezioni del 19 e 21 maggio. Tempo stimato: **circa un'ora**, una volta sola.
+Questa guida ti porta da zero a un ambiente di lavoro AI completo, identico a quello che useremo in aula durante le mie lezioni del Master. Tempo stimato: **circa 40 minuti**, una volta sola.
 
 Quando finisci avrai:
 
 - un **terminale moderno** (Warp)
 - un **AI conversazionale** che lavora dentro il tuo file system (Claude Code = "Jarvis")
 - un **archivio personale di note** che cresce nel tempo (Obsidian + un piccolo vault)
-- un **IDE** dove tutto questo si parla (Antigravity)
+- un set di **skill** (i comandi di Jarvis, come `/setup-vault` e `/save-session`) già pronte nel vault
 
 Non serve sapere programmare. Serve solo seguire i passi in ordine.
 
@@ -29,7 +29,7 @@ A cosa serve, in pratica:
 - **Far lavorare Jarvis dentro la tua conoscenza**: Jarvis legge e scrive nelle tue note, quindi può estrarre, riassumere, produrre brief, presentazioni, post LinkedIn partendo da ciò che hai già scritto invece che da una pagina bianca.
 - **Crescere nel tempo**: ogni sessione lascia tracce (daily note, file di tracking, memoria di Jarvis). Col tempo il vault diventa il tuo archivio personale di pensiero e produzione.
 
-**Esempio concreto** (lo vedrete in aula): posso connettere Jarvis a Meta Ads e chiedergli un report per ROAS, per creatività, o i top 3 ad set per ROAS negli ultimi 7 giorni. Jarvis prende i dati, prepara una nota nel vault con il riassunto e i punti su cui agire, e voi la trasformate in un messaggio per il cliente o in slide per la review settimanale.
+**Esempio concreto**: scrivi a Jarvis "prepara un brief per il cliente X partendo dai miei appunti dell'ultima call". Jarvis cerca nel vault le note giuste, ti propone una bozza e la salva come nuova nota, pronta da rifinire e inviare. Tu parti da una pagina già piena, non da una bianca.
 
 In aula partirete tutti con uno **starter pack** identico (cartelle base, skill, configurazione di Jarvis). Lo personalizzeremo insieme durante la prima lezione.
 
@@ -37,7 +37,7 @@ In aula partirete tutti con uno **starter pack** identico (cartelle base, skill,
 
 - un PC Windows 10 o 11 (64-bit, qualsiasi versione recente)
 - un **abbonamento Claude Pro** (o crediti API Anthropic). Senza uno dei due Claude Code non parte. Se non ce l'hai, ne parliamo in aula: valutiamo alternative insieme.
-- un account Google (serve per Antigravity, e per Google Drive se lo userai come cloud di sincronizzazione del vault — vedi Step 5. Drive non è obbligatorio, vanno bene anche Dropbox, OneDrive, iCloud Drive)
+- un account Google (serve solo se userai Google Drive come cloud di sincronizzazione del vault, vedi Step 3. Drive non è obbligatorio, vanno bene anche Dropbox, OneDrive, iCloud Drive)
 - circa 2 GB di spazio libero su disco
 - una connessione decente
 - diritti di amministratore sul tuo PC (per installare software)
@@ -63,80 +63,29 @@ PS C:\Users\TuoNome>
 
 Sei in Warp con PowerShell come shell di default. Da qui in poi tutti i comandi li dai qui.
 
-## Step 2 — Installa Node.js + npm
+## Step 2 — Installa Claude Code
 
-Node serve a far girare Claude Code.
+Claude Code è "Jarvis": l'AI agentica che lavora dentro il tuo file system, legge le tue cartelle, scrive file, ti aiuta a ragionare. È l'unica cosa che installi a mano: **tutto il resto lo installa lui per te**.
 
-**Opzione consigliata (più semplice): installer ufficiale**
-
-1. Vai su [nodejs.org](https://nodejs.org) e scarica la versione **LTS** (Long Term Support) per Windows
-2. Apri il `.msi` scaricato
-3. Segui l'installer accettando le opzioni di default
-4. Quando ti chiede *"Automatically install the necessary tools"*, **togli la spunta** (non ti serve, è per chi compila codice da zero)
-5. Riavvia Warp dopo l'installazione (chiudi e riapri)
-
-Verifica:
+In Warp incolla:
 
 ```powershell
-node -v
-npm -v
+irm https://claude.ai/install.ps1 | iex
 ```
 
-Dovresti vedere due numeri di versione (es. `v22.x.x` e `10.x.x`).
-
-**Se preferisci usare winget** (più moderno, salta l'installer):
+Chiudi e riapri Warp, poi verifica:
 
 ```powershell
-winget install OpenJS.NodeJS.LTS
+claude --version
 ```
 
-Poi chiudi e riapri Warp, e verifica con `node -v` e `npm -v`.
+Se risponde con un numero di versione, è installato. La prima volta che lo lanci (lo faremo allo Step 4) ti chiede di fare **login con il tuo account Claude** (Pro).
 
-## Step 3 — Installa Claude Code
+> Non serve installare Node.js o npm: l'installer nativo di Claude Code non li richiede. Se in futuro un'attività ne avrà bisogno, te lo dirà Claude stesso e li installerà lui.
 
-Claude Code è "Jarvis": l'AI agentica che lavora dentro il tuo file system, legge le tue cartelle, scrive file, ti aiuta a ragionare. In Warp:
+## Step 3 — Crea la cartella del vault
 
-```powershell
-npm install -g @anthropic-ai/claude-code
-```
-
-Su Windows non serve "sudo" (esiste l'equivalente "Run as administrator", ma `npm install -g` non lo richiede di default).
-
-Verifica:
-
-```powershell
-claude --help
-```
-
-Se risponde con la lista comandi, Claude Code è installato.
-
-## Step 4 — Installa Obsidian + attiva la sua CLI
-
-Obsidian è il database delle tue note. È gratis, locale, basato su file markdown.
-
-1. Vai su [obsidian.md](https://obsidian.md), scarica per Windows (`.exe`)
-2. Esegui l'installer
-3. Apri Obsidian dal menu Start
-4. Vai in **Settings** (icona ingranaggio in basso a sinistra)
-5. **General**
-6. Scorri fino a **Command line interface** e attivala
-7. Obsidian ti mostra un prompt di registrazione: clicca su "Register" o equivalente
-8. **Chiudi Warp e riaprilo** (importante: il terminale deve ricaricare il PATH)
-9. In Warp, verifica:
-
-```powershell
-obsidian help
-```
-
-Se risponde con la lista comandi, sei a posto. Se dice "non riconosciuto come comando", non hai ancora riaperto Warp dopo aver attivato la CLI.
-
-## Step 5 — Crea la cartella del vault
-
-Il "vault" è la cartella dove vivono le tue note Obsidian + Jarvis. Puoi metterla dove vuoi.
-
-**Consiglio**: mettila dentro un servizio di sincronizzazione cloud, così se cambi dispositivo (casa, ufficio, laptop) trovi sempre lo stesso vault aggiornato. Va bene **Google Drive**, ma anche alternative come **Dropbox**, **OneDrive** o **iCloud Drive**: il principio è lo stesso. Nelle guide useremo Google Drive perché è il più diffuso; se preferisci un'altra cloud va bene, basta adattare il path al tuo provider.
-
-Se userai sempre lo stesso PC e non hai bisogno di sincronizzare, puoi anche saltare la parte cloud: trovi l'opzione "vault locale" in fondo a questo Step.
+Il vault può stare dove vuoi, ma ti consiglio un servizio di sincronizzazione cloud (**Google Drive**, **Dropbox**, **OneDrive**, **iCloud Drive**): se cambi dispositivo ritrovi lo stesso vault aggiornato. Qui usiamo Google Drive; con un altro provider adatta il path. Se lavori sempre da un solo computer puoi saltare il cloud: l'opzione "vault locale" è in fondo a questo step.
 
 **Setup Google Drive** (consigliato):
 
@@ -157,45 +106,55 @@ Le **virgolette sono obbligatorie** perché il path contiene spazi.
 mkdir "$HOME\MioVault"
 ```
 
-## Step 6 — Estrai lo starter pack
+## Step 4 — Lascia che Claude installi la skill Jarvis
 
-Scarica `vault-starter-master-tag.zip` dalla [pagina Releases](https://github.com/enricomarchetto/master-tag-jarvis/releases/latest) di questo repo (sotto la sezione "Assets" della release più recente). Mettilo nei Download. Poi in Warp:
+Questo è il passo "magico": invece di scaricare e scompattare zip a mano, **chiedi a Claude di farlo**.
+
+Entra nella cartella del vault e avvia Claude Code:
 
 ```powershell
 cd "<path-completo-del-vault>"
-Expand-Archive -Path "$HOME\Downloads\vault-starter-master-tag.zip" -DestinationPath . -Force
+claude
 ```
 
-`Expand-Archive` è il comando PowerShell nativo per estrarre zip.
+Al primo avvio fai login con il tuo account Claude. Poi incolla questo messaggio:
 
-Verifica che siano comparsi:
+```
+Scarica lo starter pack "vault-starter-master-tag.zip" dall'ultima release di
+https://github.com/enricomarchetto/master-tag-jarvis,
+estrailo direttamente nella root di questa cartella (non in una sottocartella),
+poi verifica che ci siano .claude/, .obsidian/, Templates/ e CLAUDE.md.
+Se per fare qualcosa ti serve un programma che manca (git, Node, ecc.), dimmelo
+e installalo tu.
+```
+
+Claude ti chiederà il permesso per scaricare e scrivere file: **leggi cosa sta per fare e conferma**. Quando finisce, hai nel vault le skill di Jarvis (`/setup-vault`, `/save-session`, `/handoff`, `/vault-health-check`, ...), i template e la configurazione base.
+
+**Se Claude non riesce a scaricare lo zip**, fallo a mano: scaricalo dalla [pagina Releases](https://github.com/enricomarchetto/master-tag-jarvis/releases/latest) (sezione "Assets"), mettilo nei Download e chiedi a Claude: *"estrai lo zip che trovi in Downloads nella cartella corrente"*.
+
+Quando ha finito, scrivi `/exit`: nei prossimi step lavori su Obsidian, e a Claude torniamo allo Step 7.
+
+## Step 5 — Installa Obsidian + attiva la sua CLI
+
+Obsidian è il database delle tue note. È gratis, locale, basato su file markdown.
+
+1. Vai su [obsidian.md](https://obsidian.md), scarica per Windows (`.exe`)
+2. Esegui l'installer
+3. Apri Obsidian dal menu Start
+4. Vai in **Settings** (icona ingranaggio in basso a sinistra)
+5. **General**
+6. Scorri fino a **Command line interface** e attivala
+7. Obsidian ti mostra un prompt di registrazione: clicca su "Register" o equivalente
+8. **Chiudi Warp e riaprilo** (importante: il terminale deve ricaricare il PATH)
+9. In Warp, verifica:
 
 ```powershell
-Get-ChildItem -Force
+obsidian help
 ```
 
-(L'opzione `-Force` serve a vedere anche file/cartelle nascosti che iniziano con `.`)
+Se risponde con la lista comandi, sei a posto (altrimenti vedi Troubleshooting).
 
-Devi vedere (a livello root, **non** in una sottocartella):
-
-- `.claude\`
-- `.agents\`
-- `.obsidian\`
-- `Templates\`
-- `CLAUDE.md`
-- `AGENTS.md`
-- `Guida vault-starter-generic.md`
-
-**Se vedi una sottocartella `vault-starter-master-tag\` dentro al vault** (errore comune):
-
-```powershell
-Remove-Item -Recurse -Force vault-starter-master-tag
-Expand-Archive -Path "$HOME\Downloads\vault-starter-master-tag.zip" -DestinationPath . -Force
-```
-
-Lo zip va estratto direttamente nella root del vault, non dentro una sottocartella.
-
-## Step 7 — Apri il vault in Obsidian
+## Step 6 — Apri il vault in Obsidian
 
 In Obsidian:
 
@@ -204,15 +163,9 @@ In Obsidian:
 3. Clicca "Trust author" se chiede
 4. **Lascia Obsidian aperto** per tutto il setup e per ogni sessione successiva con Jarvis (la CLI dialoga con Obsidian in esecuzione, se chiudi smette di funzionare)
 
-## Step 8 — Avvia Jarvis e fai il setup
+## Step 7 — Avvia Jarvis e fai il setup
 
-Nella cartella del vault (in Warp):
-
-```powershell
-claude
-```
-
-Si apre l'interfaccia di Claude Code. Scrivi:
+Da Warp, nella cartella del vault, lancia `claude`. Poi scrivi:
 
 ```
 /setup-vault
@@ -243,85 +196,19 @@ Per consolidare lo stato. Poi:
 
 Esci da Claude Code.
 
-## Step 9 — Installa Antigravity (uso quotidiano)
+## Come lavori ogni giorno
 
-Antigravity è un IDE Google basato su VSCode con AI integrata. Lo useremo come **finestra principale dove tutto si parla**: editor + AI + terminale, tutto in uno.
+Il tuo setup quotidiano sono due finestre affiancate: **Warp** (dove parli con Jarvis) e **Obsidian** (dove leggi, correggi e colleghi le note che Jarvis crea o modifica).
 
-1. Vai su [labs.google.com/antigravity](https://labs.google.com/antigravity) e scarica la **versione IDE** per Windows (è l'editor desktop completo, non la modalità browser/agent)
-2. Esegui l'installer
-3. Se Windows Defender / SmartScreen blocca: **Ulteriori informazioni** -> **Esegui comunque**
-4. Avvia Antigravity dal menu Start
-5. Login con account Google
-6. Welcome screen: salta i tutorial Gemini, non ci servono adesso
-
-### Apri il vault come progetto in Antigravity
-
-1. **File -> Open Folder** (o `Ctrl+K Ctrl+O`)
-2. Seleziona la cartella del vault
-3. Conferma "Trust the authors"
-
-### Installa l'estensione Claude Code for VS Code
-
-Antigravity è basato su VS Code, quindi ha lo stesso sistema di estensioni: piccoli plugin che si scaricano dal Marketplace e aggiungono funzioni all'editor. L'estensione che ci interessa è quella ufficiale di Anthropic, **Claude Code for VS Code**: serve a far parlare Jarvis con l'IDE (file aperti visti in automatico, diff visivi, link cliccabili al codice).
-
-Per installare un'estensione in Antigravity:
-
-1. Apri il pannello **Extensions**: clicca l'icona a forma di **quattro tasselli** nella barra verticale a sinistra (di solito è la quarta dall'alto), oppure usa la scorciatoia `Ctrl+Shift+X`
-2. Si apre una colonna con una barra di ricerca in alto e una lista di estensioni
-3. Nella barra di ricerca scrivi `Claude Code`
-4. Tra i risultati, individua **Claude Code for VS Code** pubblicato da **Anthropic** (controlla il nome dell'autore: è importante per non installare cloni)
-
-   ![Pannello Extensions di Antigravity con la ricerca "Claude Code"](images/antigravity-claude-code-extension.png)
-
-5. Clicca **Install** sul riquadro dell'estensione
-6. Se Antigravity ti chiede di **ricaricare la finestra** (reload), accetta
-
-Quando l'estensione è installata vedrai una nuova icona di Claude Code nella barra laterale sinistra di Antigravity.
-
-> Nota: Antigravity usa come marketplace di default **Open VSX** (non il marketplace di Microsoft). Per le estensioni indicate in questa guida non cambia nulla, sono tutte disponibili lì. Se in futuro ti capita di non trovare un'estensione che esiste solo sul marketplace Microsoft, puoi cambiare marketplace dalle impostazioni di Antigravity.
-
-### Apri il terminale embedded e lancia Claude Code
-
-1. `View -> Terminal` oppure scorciatoia `` Ctrl+` `` (apice grave, in alto a sinistra sotto Esc)
-2. Si apre un pannello terminale in basso
-3. Verifica di essere nella cartella del vault con `pwd` (o `Get-Location`)
-4. Lancia:
-
-```powershell
-claude
-```
-
-Da questo momento, **parli con Jarvis dal terminale di Antigravity**. È esattamente lo stesso Jarvis di prima (le slash command `/save-session`, `/handoff`, `/vault-health-check` funzionano identiche), solo che adesso vedi anche i file del vault nell'explorer di sinistra.
-
-## Cosa fare ogni volta che inizi a lavorare
-
-1. Apri **Obsidian** (vault aperto)
-2. Apri **Antigravity** (vault aperto come progetto)
-3. Nel terminale embedded di Antigravity: `claude`
-4. Lavora con Jarvis
-5. A fine sessione: `/save-session` poi `/exit`
-
-## Cosa porterai in aula il 19 e 21 maggio
-
-Per le mie lezioni del Master:
-
-- Setup completato fin qui
-- Vault Jarvis funzionante
-- Il tuo LLM Pro privato (Claude / ChatGPT / Gemini) attivo durante la lezione
-- Carta e penna per appunti grezzi
-
-Durante la lezione costruiremo insieme contenuti pratici dentro il tuo vault. Vedrai Jarvis lavorare in diretta sul mio schermo, replicherai sul tuo.
+1. Apri **Obsidian** con il vault (deve restare aperto: la CLI dialoga con lui)
+2. Apri **Warp** e vai nella cartella del vault (`vault`, se hai creato l'alias, oppure `cd` col path completo)
+3. Lancia `claude` e lavora con Jarvis
+4. A fine sessione: `/save-session` poi `/exit`
 
 ## Troubleshooting Windows-specifico
 
 **`obsidian: non riconosciuto come comando`**
 Hai attivato la CLI in Obsidian ma non hai chiuso e riaperto Warp. Chiudi e riapri Warp.
-
-**`Windows Defender / SmartScreen blocca un'installazione`**
-È prudenza eccessiva di Windows con software scaricato da Internet. Clicca **Ulteriori informazioni** -> **Esegui comunque**. Tutti i software citati nella guida sono ufficiali e legittimi.
-
-**`npm install -g` dà errore di permessi (EACCES o EPERM)**
-Esegui Warp come amministratore: tasto destro sull'icona Warp dal menu Start -> **Esegui come amministratore**. Poi riprova `npm install -g @anthropic-ai/claude-code`.
 
 **Path con spazi (es. "Il mio Drive")**
 Servono sempre le virgolette nei comandi. Esempio:
@@ -347,34 +234,20 @@ Salva, chiudi Notepad, riapri Warp. Da quel momento basta scrivere `vault` e ci 
 **Caratteri speciali nel nome utente (es. accenti)**
 Se il tuo nome utente Windows contiene caratteri accentati o speciali, alcuni installer fanno fatica. Se incontri problemi che sembrano legati al path, scrivimi prima della lezione: ci sono workaround ma vanno valutati caso per caso.
 
-**Le slash command non compaiono in Claude Code**
-Hai lanciato `claude` fuori dalla root del vault. `cd` nella cartella del vault, poi rilancia `claude`.
-
-**Jarvis non legge bene il vault**
+**Le slash command non compaiono, o Jarvis non legge il vault**
 Tre check:
 1. Obsidian è aperto sul vault giusto?
 2. `obsidian help` risponde dal terminale?
 3. Claude Code è lanciato dalla root del vault?
 
-Se vuoi una **rete di sicurezza** contro errori, prima di cominciare a lavorare:
+Se vuoi una **rete di sicurezza** contro errori, prima di cominciare a lavorare scrivi a Claude:
 
-```powershell
-cd "<path-vault>"
-git init
-git add -A
-git commit -m "Initial vault starter"
+```
+Inizializza git in questa cartella e fai un primo commit "Initial vault starter".
+Se git non è installato, installalo tu.
 ```
 
-(Su Windows ti serve **Git for Windows** se non l'hai già: scarica da [git-scm.com](https://git-scm.com).) Da quel momento se Jarvis fa danni puoi tornare indietro con `git reset --hard HEAD`.
-
-**PowerShell esegui-script bloccati (`execution policy`)**
-Alcune installazioni o script PowerShell vengono bloccati per policy di default. Soluzione: apri PowerShell come amministratore una volta e dai:
-
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
-
-Da quel momento sei a posto.
+Da quel momento, se Jarvis fa danni, chiedi a Claude di riportare il vault all'ultimo commit.
 
 ## Domande
 
