@@ -8,12 +8,13 @@ tags: [guida, setup, mac, jarvis, master-tag]
 
 # Guida setup Jarvis — versione Mac
 
-Questa guida ti porta da zero a un ambiente di lavoro AI completo, identico a quello che useremo in aula durante le mie lezioni del Master. Tempo stimato: **circa 40 minuti**, una volta sola.
+Questa guida ti porta da zero a un ambiente di lavoro AI completo, identico a quello che useremo in aula durante le mie lezioni del Master. Tempo stimato: **circa 30 minuti**, una volta sola.
+
+L'idea è semplice: **installi solo l'app Claude**, fai il login, e poi è Claude stesso a installare e configurare tutto il resto. Tu confermi i passaggi.
 
 Quando finisci avrai:
 
-- un **terminale moderno** (Warp)
-- un **AI conversazionale** che lavora dentro il tuo file system (Claude Code = "Jarvis")
+- un **AI conversazionale** che lavora dentro le tue cartelle (Claude Code = "Jarvis")
 - un **archivio personale di note** che cresce nel tempo (Obsidian + un piccolo vault)
 - un set di **skill** (i comandi di Jarvis, come `/setup-vault` e `/save-session`) già pronte nel vault
 
@@ -37,88 +38,39 @@ In aula partirete tutti con uno **starter pack** identico (cartelle base, skill,
 
 - un Mac (Apple Silicon o Intel, qualsiasi versione di macOS dal 2020 in poi)
 - un **abbonamento Claude Pro** (o crediti API Anthropic). Senza uno dei due Claude Code non parte. Se non ce l'hai, ne parliamo in aula: valutiamo alternative insieme.
-- un account Google (serve solo se userai Google Drive come cloud di sincronizzazione del vault, vedi Step 3. Drive non è obbligatorio, vanno bene anche Dropbox, OneDrive, iCloud Drive)
+- un account Google (serve solo se userai Google Drive come cloud di sincronizzazione del vault, vedi Step 2. Drive non è obbligatorio, vanno bene anche Dropbox, OneDrive, iCloud Drive)
 - circa 2 GB di spazio libero su disco
-- una connessione decente (alcuni download sono grossi, es. Xcode Command Line Tools ~1 GB)
+- una connessione decente
 
-## Step 1 — Installa Warp (terminale)
+## Step 1 — Installa l'app Claude e fai il login
 
-Warp è il tuo nuovo terminale. Più moderno e più "umano" del Terminale di sistema.
+1. Vai su [claude.ai/download](https://claude.ai/download) e scarica l'app per Mac
+2. Apri il `.dmg` e trascina **Claude** in Applicazioni. Al primo avvio, se macOS chiede conferma perché l'app arriva da Internet, autorizza
+3. Apri l'app e fai **login con il tuo account Claude** (quello con l'abbonamento Pro)
+4. Nell'app trovi la sezione **Code**: è Claude Code, cioè "Jarvis". La useremo allo Step 3
 
-1. Vai su [warp.dev](https://www.warp.dev) e scarica la versione Mac
-2. Apri il `.dmg`, trascina **Warp** in Applicazioni
-3. Avvia Warp dalle Applicazioni
-4. Se Mac dice "app scaricata da Internet, sei sicuro?", autorizza (è normale, succede solo al primo avvio)
-5. Al primo avvio Warp chiede:
-   - **Login con Google o email** (consigliato, ti dà la sincronizzazione delle preferenze)
-   - **"Build an agent" oppure "Terminal"**, scegli **Terminal**
-   - **Select directory**, seleziona la tua **home** (`/Users/<tuonome>`) oppure salta se l'opzione c'è
+Questa è l'unica installazione "a mano" per Claude. Node.js, npm, git e tutto il resto, se serviranno, li installa Claude per te.
 
-A questo punto vedi un prompt tipo:
+## Step 2 — Crea la cartella del vault
 
-```
-TuoNome@TuoMac ~ %
-```
-
-Sei in Warp. Da qui in poi tutti i comandi li dai qui.
-
-## Step 2 — Installa Claude Code
-
-Claude Code è "Jarvis": l'AI agentica che lavora dentro il tuo file system, legge le tue cartelle, scrive file, ti aiuta a ragionare. È l'unica cosa che installi a mano: **tutto il resto lo installa lui per te**.
-
-In Warp incolla:
-
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-Chiudi e riapri Warp, poi verifica:
-
-```bash
-claude --version
-```
-
-Se risponde con un numero di versione, è installato. La prima volta che lo lanci (lo faremo allo Step 4) ti chiede di fare **login con il tuo account Claude** (Pro).
-
-> Non serve installare Homebrew, Node.js o npm: l'installer nativo di Claude Code non li richiede. Se in futuro un'attività ne avrà bisogno, te lo dirà Claude stesso e li installerà lui.
-
-## Step 3 — Crea la cartella del vault
-
-Il vault può stare dove vuoi, ma ti consiglio un servizio di sincronizzazione cloud (**Google Drive**, **Dropbox**, **OneDrive**, **iCloud Drive**): se cambi dispositivo ritrovi lo stesso vault aggiornato. Qui usiamo Google Drive; con un altro provider adatta il path. Se lavori sempre da un solo computer puoi saltare il cloud: l'opzione "vault locale" è in fondo a questo step.
+Il vault può stare dove vuoi, ma ti consiglio un servizio di sincronizzazione cloud (**Google Drive**, **Dropbox**, **OneDrive**, **iCloud Drive**): se cambi dispositivo ritrovi lo stesso vault aggiornato. Qui usiamo Google Drive; con un altro provider adatta il percorso. Se lavori sempre da un solo computer puoi saltare il cloud: l'opzione "vault locale" è in fondo a questo step.
 
 **Setup Google Drive** (consigliato):
 
-1. Installa **Google Drive per desktop** da [google.com/drive/download](https://www.google.com/drive/download/), trascina in Applicazioni, avvia, login con il tuo account Google
-2. Lascia che Drive si sincronizzi. Il path sul Mac sarà tipo:
-   `~/Library/CloudStorage/GoogleDrive-<tuamail>/Il mio Drive/`
-3. Crea la cartella del vault in Warp:
+1. Installa **Google Drive per desktop** da [google.com/drive/download](https://www.google.com/drive/download/), trascina in Applicazioni, avvia
+2. Login con il tuo account Google e lascia che Drive si sincronizzi
+3. Apri **Finder**: Google Drive compare nella barra laterale. Entra in **Il mio Drive**
+4. Crea una nuova cartella e chiamala **MioVault**
 
-```bash
-mkdir "$HOME/Library/CloudStorage/GoogleDrive-tuamail@gmail.com/Il mio Drive/MioVault"
-```
+**Se preferisci tenere il vault locale** (non su Drive): crea una cartella **MioVault** dentro Documenti.
 
-(Sostituisci `tuamail@gmail.com` col tuo indirizzo Google. Il path ha gli spazi, quindi vanno le **virgolette**.)
-
-Per scoprire il path esatto del tuo Drive: in Finder vai su Google Drive, tasto destro -> **Get Info** (oppure ⌘I), sotto "Where" trovi il path completo. Puoi anche **trascinare la cartella da Finder dentro Warp** dopo aver scritto `cd `: Warp incolla il path automaticamente.
-
-**Se preferisci tenere il vault locale** (non su Drive):
-
-```bash
-mkdir ~/MioVault
-```
-
-## Step 4 — Lascia che Claude installi la skill Jarvis
+## Step 3 — Apri la cartella in Claude e installa la skill Jarvis
 
 Questo è il passo "magico": invece di scaricare e scompattare zip a mano, **chiedi a Claude di farlo**.
 
-Entra nella cartella del vault e avvia Claude Code:
-
-```bash
-cd "<path-completo-del-vault>"
-claude
-```
-
-Al primo avvio fai login con il tuo account Claude. Poi incolla questo messaggio:
+1. Nell'app Claude vai nella sezione **Code**
+2. Quando ti chiede una cartella di lavoro, scegli la cartella **MioVault** appena creata
+3. Incolla questo messaggio:
 
 ```
 Scarica lo starter pack "vault-starter-master-tag.zip" dall'ultima release di
@@ -133,39 +85,42 @@ Claude ti chiederà il permesso per scaricare e scrivere file: **leggi cosa sta 
 
 **Se Claude non riesce a scaricare lo zip**, fallo a mano: scaricalo dalla [pagina Releases](https://github.com/enricomarchetto/master-tag-jarvis/releases/latest) (sezione "Assets"), mettilo nei Download e chiedi a Claude: *"estrai lo zip che trovi in Downloads nella cartella corrente"*.
 
-Quando ha finito, scrivi `/exit`: nei prossimi step lavori su Obsidian, e a Claude torniamo allo Step 7.
+## Step 4 — Installa Obsidian + attiva la sua CLI
 
-## Step 5 — Installa Obsidian + attiva la sua CLI
+Obsidian è il database delle tue note. È gratis, locale, basato su file markdown. Chiedi a Claude di installarlo:
 
-Obsidian è il database delle tue note. È gratis, locale, basato su file markdown.
+```
+Installa Obsidian su questo computer, con Homebrew (se non c'è, installa prima Homebrew).
+```
 
-1. Vai su [obsidian.md](https://obsidian.md), scarica per Mac, apri il `.dmg`, trascina in Applicazioni
-2. Apri Obsidian
-3. Vai in **Settings** (icona ingranaggio in basso a sinistra)
-4. **General**
-5. Scorri fino a **Command line interface** e attivala
-6. Obsidian ti mostra un prompt di registrazione: clicca su "Register" o equivalente
-7. **Chiudi Warp e riaprilo** (importante: il terminale deve ricaricare il PATH)
-8. In Warp, verifica:
+(Se preferisci farlo a mano: scarica da [obsidian.md](https://obsidian.md) e trascina in Applicazioni.)
 
-```bash
-obsidian help
+Poi attiva la CLI, che permette a Claude di leggere e scrivere le note tramite Obsidian. Questo passaggio lo fai tu:
+
+1. Apri Obsidian
+2. Vai in **Settings** (icona ingranaggio in basso a sinistra) -> **General**
+3. Scorri fino a **Command line interface** e attivala
+4. Obsidian ti mostra un prompt di registrazione: clicca su "Register" o equivalente
+5. **Chiudi e riapri l'app Claude** (importante: deve ricaricare il PATH), rientra in **Code** sulla cartella MioVault e scrivi:
+
+```
+Esegui "obsidian help" e dimmi se funziona.
 ```
 
 Se risponde con la lista comandi, sei a posto (altrimenti vedi Troubleshooting).
 
-## Step 6 — Apri il vault in Obsidian
+## Step 5 — Apri il vault in Obsidian
 
 In Obsidian:
 
 1. **Open folder as vault**
-2. Seleziona la cartella del vault appena creata
+2. Seleziona la cartella MioVault
 3. Clicca "Trust author" se chiede
 4. **Lascia Obsidian aperto** per tutto il setup e per ogni sessione successiva con Jarvis (la CLI dialoga con Obsidian in esecuzione, se chiudi smette di funzionare)
 
-## Step 7 — Avvia Jarvis e fai il setup
+## Step 6 — Fai il setup di Jarvis
 
-Da Warp, nella cartella del vault, lancia `claude`. Poi scrivi:
+Torna nell'app Claude, sezione **Code**, con la cartella MioVault. Scrivi:
 
 ```
 /setup-vault
@@ -188,52 +143,30 @@ Quando finisce, scrivi:
 /save-session
 ```
 
-Per consolidare lo stato. Poi:
-
-```
-/exit
-```
-
-Esci da Claude Code.
+Per consolidare lo stato.
 
 ## Come lavori ogni giorno
 
-Il tuo setup quotidiano sono due finestre affiancate: **Warp** (dove parli con Jarvis) e **Obsidian** (dove leggi, correggi e colleghi le note che Jarvis crea o modifica).
+Il tuo setup quotidiano sono due finestre affiancate: **l'app Claude** (dove parli con Jarvis) e **Obsidian** (dove leggi, correggi e colleghi le note che Jarvis crea o modifica).
 
 1. Apri **Obsidian** con il vault (deve restare aperto: la CLI dialoga con lui)
-2. Apri **Warp** e vai nella cartella del vault (`vault`, se hai creato l'alias, oppure `cd` col path completo)
-3. Lancia `claude` e lavora con Jarvis
-4. A fine sessione: `/save-session` poi `/exit`
+2. Apri l'app **Claude**, sezione **Code**, sulla cartella MioVault
+3. Lavora con Jarvis
+4. A fine sessione: `/save-session`
 
 ## Troubleshooting Mac-specifico
 
-**`obsidian: command not found`**
-Hai attivato la CLI in Obsidian ma non hai chiuso e riaperto Warp. Chiudi e riapri Warp.
+**`obsidian` non viene riconosciuto**
+Hai attivato la CLI in Obsidian ma non hai chiuso e riaperto l'app Claude. Chiudila, riaprila e riprova.
 
-**Gatekeeper blocca Warp / Obsidian**
+**Gatekeeper blocca Claude / Obsidian**
 Al primo avvio macOS blocca le app scaricate. Soluzione: tasto destro sull'app in Applicazioni -> **Apri**. Solo la prima volta.
-
-**Path con spazi (es. "Il mio Drive")**
-Servono sempre le virgolette nei comandi. Esempio:
-
-```bash
-cd "/Users/tuonome/Library/CloudStorage/GoogleDrive-tuamail/Il mio Drive/MioVault"
-```
-
-Comodo: crea un alias in `~/.zshrc` per non riscrivere il path lungo ogni volta:
-
-```bash
-echo 'alias vault="cd \"/Users/tuonome/Library/CloudStorage/GoogleDrive-tuamail/Il mio Drive/MioVault\""' >> ~/.zshrc
-source ~/.zshrc
-```
-
-Da quel momento basta scrivere `vault` in Warp e ci entri dentro.
 
 **Le slash command non compaiono, o Jarvis non legge il vault**
 Tre check:
 1. Obsidian è aperto sul vault giusto?
-2. `obsidian help` risponde dal terminale?
-3. Claude Code è lanciato dalla root del vault?
+2. Claude risponde a "esegui `obsidian help`"?
+3. In Code hai scelto come cartella di lavoro la root del vault (MioVault), non una sottocartella?
 
 Se vuoi una **rete di sicurezza** contro errori, prima di cominciare a lavorare scrivi a Claude:
 
